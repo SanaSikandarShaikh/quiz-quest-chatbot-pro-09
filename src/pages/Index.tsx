@@ -66,11 +66,11 @@ const Index = () => {
 
   // If both registered and logged in, show chat interface
   return (
-    <div className="relative">
+    <div className="relative min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50">
       <div className="absolute top-4 right-4 z-10">
         <button
           onClick={handleLogout}
-          className="px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+          className="px-4 py-2 text-sm bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg hover:from-red-600 hover:to-pink-600 transition-all duration-200 shadow-lg font-medium"
         >
           Logout
         </button>

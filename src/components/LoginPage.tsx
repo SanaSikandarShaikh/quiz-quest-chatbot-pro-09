@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { loginService } from '../services/loginService';
+import { LogIn, Mail, Lock, Sparkles } from 'lucide-react';
 
 interface LoginPageProps {
   onLoginSuccess: () => void;
@@ -42,8 +43,8 @@ const LoginPage = ({ onLoginSuccess, onSwitchToRegister }: LoginPageProps) => {
       
       if (result.success) {
         toast({
-          title: "Login Successful!",
-          description: "Welcome back! Email notification sent.",
+          title: "🎉 Welcome back!",
+          description: "Login successful! Email notification sent.",
         });
         
         console.log('✅ Login successful for:', email);
@@ -63,78 +64,97 @@ const LoginPage = ({ onLoginSuccess, onSwitchToRegister }: LoginPageProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+        <div className="text-center">
+          <div className="flex justify-center mb-4">
+            <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full">
+              <LogIn className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Welcome Back!
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Enter your credentials to access the chat
+          <p className="mt-2 text-gray-600">
+            Sign in to continue your journey
           </p>
         </div>
         
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email Address
-              </label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                className="mt-1"
-              />
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-purple-200">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Mail className="w-4 h-4 inline mr-1" />
+                  Email Address
+                </label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  className="border-2 border-purple-200 focus:border-purple-500 rounded-lg"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Lock className="w-4 h-4 inline mr-1" />
+                  Password
+                </label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className="border-2 border-purple-200 focus:border-purple-500 rounded-lg"
+                />
+              </div>
             </div>
-            
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                className="mt-1"
-              />
-            </div>
-          </div>
 
-          {error && (
-            <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
+            {error && (
+              <Alert variant="destructive" className="border-red-200 bg-red-50">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
 
-          <div className="space-y-4">
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-            >
-              {isLoading ? 'Signing in...' : 'Sign In'}
-            </Button>
-            
-            <div className="text-center">
-              <button
-                type="button"
-                onClick={onSwitchToRegister}
-                className="text-indigo-600 hover:text-indigo-500 text-sm font-medium"
+            <div className="space-y-4">
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 shadow-lg transform hover:scale-105 transition-all duration-200"
               >
-                Don't have an account? Register here
-              </button>
+                {isLoading ? (
+                  <div className="flex items-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Signing in...
+                  </div>
+                ) : (
+                  <div className="flex items-center">
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    Sign In
+                  </div>
+                )}
+              </Button>
+              
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={onSwitchToRegister}
+                  className="text-purple-600 hover:text-purple-500 text-sm font-medium transition-colors duration-200"
+                >
+                  Don't have an account? <span className="underline">Register here</span>
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
