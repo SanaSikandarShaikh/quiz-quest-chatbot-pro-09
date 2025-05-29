@@ -15,29 +15,31 @@ class EmailService {
     ipAddress?: string;
   }): Promise<boolean> {
     try {
-      // Prepare email data for mysteriousmee47@gmail.com
+      // Prepare email data for mysteriousmee@gmail.com
       const emailData = {
-        to_email: 'mysteriousmee47@gmail.com', // Always send to your email
+        to_email: 'mysteriousmee@gmail.com', // Your Gmail address
         from_name: userDetails.fullName,
         from_email: userDetails.email,
         subject: `🔔 New Registration: ${userDetails.fullName}`,
         message: `
-🔔 NEW USER REGISTRATION
+🔔 NEW USER REGISTRATION - HP VICTUS LAPTOP
 
 User Details:
 📝 Name: ${userDetails.fullName}
 📧 Email: ${userDetails.email}
 📅 Registration Date: ${new Date(userDetails.registrationDate).toLocaleString()}
-🌐 IP Address: ${userDetails.ipAddress || 'Unknown'}
+🌐 IP Address: ${userDetails.ipAddress || 'Localhost'}
+💻 Device: HP Victus Laptop
+🖥️ Environment: Local Development (VSCode)
 
-This user has successfully registered on your platform.
+This user has successfully registered on your local development platform.
 
 ---
-Sent from your registration system
+Sent from your local registration system
         `
       };
 
-      console.log('📧 Sending registration notification email to mysteriousmee47@gmail.com:', {
+      console.log('📧 Sending registration notification email to mysteriousmee@gmail.com:', {
         user: emailData.from_email,
         name: emailData.from_name,
         timestamp: new Date().toISOString()
@@ -53,7 +55,7 @@ Sent from your registration system
       });
 
       if (response.ok) {
-        console.log('✅ Registration email sent successfully to mysteriousmee47@gmail.com');
+        console.log('✅ Registration email sent successfully to mysteriousmee@gmail.com');
         return true;
       } else {
         console.error('❌ Failed to send registration email:', response.statusText);

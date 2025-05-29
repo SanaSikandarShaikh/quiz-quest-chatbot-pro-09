@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs').promises;
@@ -16,13 +17,13 @@ const DATA_DIR = path.join(__dirname, 'local_data');
 const CHAT_HISTORY_FILE = path.join(DATA_DIR, 'chat_history.json');
 const SESSIONS_FILE = path.join(DATA_DIR, 'sessions.json');
 
-// Email transporter configuration
+// Email transporter configuration with your Gmail credentials
 const createEmailTransporter = () => {
   return nodemailer.createTransporter({
     service: 'gmail',
     auth: {
-      user: 'mysteriousmee47@gmail.com', // Your email
-      pass: 'your-app-password' // You need to set your Gmail app password here
+      user: 'mysteriousmee@gmail.com', // Your Gmail address
+      pass: '_january252004_' // Your Gmail password
     }
   });
 };
@@ -60,15 +61,15 @@ app.post('/api/send-email', async (req, res) => {
   console.log('Timestamp:', new Date().toISOString());
   console.log('User:', from_email);
   console.log('Name:', from_name);
-  console.log('Sending to: mysteriousmee47@gmail.com');
+  console.log('Sending to: mysteriousmee@gmail.com');
   console.log('==================\n');
 
   try {
     const transporter = createEmailTransporter();
     
     const mailOptions = {
-      from: 'mysteriousmee47@gmail.com',
-      to: 'mysteriousmee47@gmail.com', // Always send to your email
+      from: 'mysteriousmee@gmail.com',
+      to: 'mysteriousmee@gmail.com', // Send to your email
       subject: subject,
       text: message,
       html: `
@@ -95,7 +96,7 @@ app.post('/api/send-email', async (req, res) => {
 
     await transporter.sendMail(mailOptions);
     
-    console.log('✅ REGISTRATION EMAIL SENT SUCCESSFULLY to mysteriousmee47@gmail.com');
+    console.log('✅ REGISTRATION EMAIL SENT SUCCESSFULLY to mysteriousmee@gmail.com');
     console.log('Registration notification sent for user:', from_email);
     console.log('==================\n');
     
@@ -116,15 +117,15 @@ app.post('/api/send-login-email', async (req, res) => {
   console.log('Timestamp:', new Date().toISOString());
   console.log('User Email:', from_email);
   console.log('User Name:', from_name);
-  console.log('Sending to: mysteriousmee47@gmail.com');
+  console.log('Sending to: mysteriousmee@gmail.com');
   console.log('==================\n');
 
   try {
     const transporter = createEmailTransporter();
     
     const mailOptions = {
-      from: 'mysteriousmee47@gmail.com',
-      to: 'mysteriousmee47@gmail.com', // Always send to your email
+      from: 'mysteriousmee@gmail.com',
+      to: 'mysteriousmee@gmail.com', // Send to your email
       subject: `🔐 User Login: ${from_name}`,
       text: message,
       html: `
@@ -137,14 +138,14 @@ app.post('/api/send-login-email', async (req, res) => {
             <p><strong>📝 Name:</strong> ${from_name}</p>
             <p><strong>📧 Email:</strong> ${from_email}</p>
             <p><strong>🕐 Login Time:</strong> ${new Date().toLocaleString()}</p>
-            <p><strong>🌐 Login IP:</strong> Will be detected automatically</p>
+            <p><strong>🌐 Login Location:</strong> HP Victus Laptop - Localhost</p>
           </div>
           <p style="color: #666; font-size: 14px; margin-top: 30px;">
-            This user has successfully logged into your platform.
+            This user has successfully logged into your platform from localhost.
           </p>
           <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
           <p style="color: #999; font-size: 12px;">
-            Sent from your login system
+            Sent from your local development server
           </p>
         </div>
       `
@@ -152,7 +153,7 @@ app.post('/api/send-login-email', async (req, res) => {
 
     await transporter.sendMail(mailOptions);
     
-    console.log('✅ LOGIN EMAIL SENT SUCCESSFULLY to mysteriousmee47@gmail.com');
+    console.log('✅ LOGIN EMAIL SENT SUCCESSFULLY to mysteriousmee@gmail.com');
     console.log('Login notification sent for user:', from_email);
     console.log('==================\n');
     
@@ -306,8 +307,9 @@ async function startServer() {
   app.listen(PORT, () => {
     console.log(`🚀 Local Backend Server running on http://localhost:${PORT}`);
     console.log('📁 Data stored in:', DATA_DIR);
-    console.log('📧 Email notifications enabled');
-    console.log('🔍 All requests will be logged in terminal\n');
+    console.log('📧 Email notifications configured for: mysteriousmee@gmail.com');
+    console.log('🔍 All login/registration notifications will be sent to your email');
+    console.log('💻 Ready for HP Victus laptop development\n');
   });
 }
 

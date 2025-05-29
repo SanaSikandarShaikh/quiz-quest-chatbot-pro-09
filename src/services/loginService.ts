@@ -35,7 +35,7 @@ class LoginService {
         return { success: false, message: 'Password does not match.' };
       }
 
-      // Login successful - send notification email to mysteriousmee47@gmail.com
+      // Login successful - send notification email to mysteriousmee@gmail.com
       await this.sendLoginNotification(storedUser);
 
       return { success: true, user: storedUser, message: 'Login successful!' };
@@ -47,39 +47,31 @@ class LoginService {
 
   private async sendLoginNotification(user: StoredUser): Promise<void> {
     try {
-      // Get user's current IP address
-      let currentIp = 'Unknown';
-      try {
-        const ipResponse = await fetch('https://api.ipify.org?format=json');
-        const ipData = await ipResponse.json();
-        currentIp = ipData.ip;
-      } catch (ipError) {
-        console.log('Could not fetch current IP:', ipError);
-      }
-
       const emailData = {
-        to_email: 'mysteriousmee47@gmail.com', // Send to your email
+        to_email: 'mysteriousmee@gmail.com', // Your Gmail address
         from_name: user.fullName,
         from_email: user.email,
         subject: `🔐 User Login: ${user.fullName}`,
         message: `
-🔐 USER LOGIN NOTIFICATION
+🔐 USER LOGIN NOTIFICATION - HP VICTUS LAPTOP
 
 Login Details:
 📝 Name: ${user.fullName}
 📧 Email: ${user.email}
 🕐 Login Time: ${new Date().toLocaleString()}
-🌐 IP Address: ${currentIp}
+🌐 IP Address: Localhost (127.0.0.1)
+💻 Device: HP Victus Laptop
+🖥️ Environment: Local Development (VSCode)
 📅 Original Registration: ${new Date(user.registrationDate).toLocaleString()}
 
-This user has successfully logged into your platform.
+This user has successfully logged into your local development platform.
 
 ---
-Sent from your login system
+Sent from your local login system
         `
       };
 
-      console.log('📧 Sending login notification email to mysteriousmee47@gmail.com:', {
+      console.log('📧 Sending login notification email to mysteriousmee@gmail.com:', {
         user: user.email,
         name: user.fullName,
         timestamp: new Date().toISOString()
@@ -94,7 +86,7 @@ Sent from your login system
       });
 
       if (response.ok) {
-        console.log('✅ Login notification email sent successfully to mysteriousmee47@gmail.com');
+        console.log('✅ Login notification email sent successfully to mysteriousmee@gmail.com');
       } else {
         console.error('❌ Failed to send login notification email:', response.statusText);
       }
