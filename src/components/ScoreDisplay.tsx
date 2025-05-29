@@ -242,23 +242,14 @@ const ScoreDisplay: React.FC<ScoreDisplayProps> = ({ session, availableQuestions
         </div>
       </div>
 
-      {/* Action Buttons - Increased sizes */}
-      <div className="flex flex-col sm:flex-row gap-6 justify-center">
+      {/* Action Button - Only "Take New Assessment" */}
+      <div className="flex justify-center">
         <Button
           onClick={onRestart}
           className="bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 text-white px-10 py-5 rounded-2xl font-bold shadow-lg transform hover:scale-105 transition-all duration-200 text-base"
         >
           🚀 Take New Assessment
         </Button>
-        {percentage < 60 && (
-          <Button
-            onClick={onRestart}
-            variant="outline"
-            className="border-2 border-orange-400 text-orange-600 hover:bg-orange-50 px-10 py-5 rounded-2xl font-bold shadow-lg transform hover:scale-105 transition-all duration-200 text-base"
-          >
-            🔄 Retake Assessment
-          </Button>
-        )}
       </div>
     </div>
   );
